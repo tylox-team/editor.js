@@ -3,6 +3,7 @@ import {API, LogLevels, OutputData} from '../index';
 import {SanitizerConfig} from './sanitizer-config';
 import {I18nConfig} from './i18n-config';
 import { BlockMutationEvent } from '../events/block';
+import Paste, { PasteData } from '../../src/components/modules/paste';
 
 export interface EditorConfig {
   /**
@@ -115,4 +116,9 @@ export interface EditorConfig {
      */
     nonce?: string;
   }
+
+  /**
+   * A function that intercepts the pasted data and returns a modified version of the data
+   */
+  pasteInterceptor?(data: PasteData, ctrl: Paste): PasteData;
 }

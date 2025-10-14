@@ -74,7 +74,7 @@ interface FilesSubstitution {
  *
  * @interface PasteData
  */
-interface PasteData {
+export interface PasteData {
   /**
    * Name of related Tool
    *
@@ -251,7 +251,7 @@ export default class Paste extends Module {
     const isCurrentBlockDefault = BlockManager.currentBlock && BlockManager.currentBlock.tool.isDefault;
     const needToReplaceCurrentBlock = isCurrentBlockDefault && BlockManager.currentBlock.isEmpty;
 
-    dataToInsert.map(
+    dataToInsert.map((data) => this.config.pasteInterceptor?.(data, this)).map(
       async (content, i) => this.insertBlock(content, i === 0 && needToReplaceCurrentBlock)
     );
 
