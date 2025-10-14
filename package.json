@@ -30,7 +30,8 @@
     "tools:update": "yarn _tools:checkout && yarn _tools:pull && yarn _tools:make",
     "test:e2e": "yarn build:test && cypress run",
     "test:e2e:open": "yarn build:test && cypress open",
-    "devserver:start": "yarn build && node ./devserver.js"
+    "devserver:start": "yarn build && node ./devserver.js",
+    "prepare": "yarn build"
   },
   "author": "CodeX",
   "license": "Apache-2.0",
@@ -77,5 +78,6 @@
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/editorjs"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
