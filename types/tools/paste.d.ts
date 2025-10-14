@@ -185,9 +185,9 @@ export interface Paste {
    * Get patterns` matches
    *
    * @param {string} text - text to process
-   * @returns {Promise<{event: PasteEvent, tool: string}>}
+   * @returns {{event: PasteEvent, tool: string} | undefined}
    */
-  processPattern(text: string): Promise<{ event: PasteEvent; tool: string }>;
+  processPattern(text: string): { event: PasteEvent; tool: string } | undefined;
 
   /**
    * Insert pasted Block content to Editor
@@ -214,7 +214,7 @@ export interface Paste {
    * @param {Node} destNode - destination node
    */
   processElementNode(node: Node, nodes: Node[], destNode: Node): Node[] | void;
-  
+
   /**
    * Recursively divide HTML string to two types of nodes:
    * 1. Block element

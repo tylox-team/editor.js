@@ -692,7 +692,7 @@ export default class Paste extends Module {
     const currentBlockIsDefault = BlockManager.currentBlock && BlockManager.currentBlock.tool.isDefault;
 
     if (currentBlockIsDefault && content.textContent.length < Paste.PATTERN_PROCESSING_MAX_LENGTH) {
-      const blockData = await this.processPattern(content.textContent);
+      const blockData = this.processPattern(content.textContent);
 
       if (blockData) {
         const needToReplaceCurrentBlock = BlockManager.currentBlock &&
@@ -725,9 +725,9 @@ export default class Paste extends Module {
    * Get patterns` matches
    *
    * @param {string} text - text to process
-   * @returns {Promise<{event: PasteEvent, tool: string}>}
+   * @returns {{event: PasteEvent, tool: string} | undefined}
    */
-  private async processPattern(text: string): Promise<{ event: PasteEvent; tool: string }> {
+  private processPattern(text: string): { event: PasteEvent; tool: string } | undefined {
     const pattern = this.toolsPatterns.find((substitute) => {
       const execResult = substitute.pattern.exec(text);
 
