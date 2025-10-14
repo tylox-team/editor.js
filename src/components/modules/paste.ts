@@ -13,63 +13,9 @@ import type { SavedData } from '../../../types/data-formats';
 import { clean, sanitizeBlocks } from '../utils/sanitizer';
 import type BlockToolAdapter from '../tools/block';
 import { PasteData } from '../../../types/configs/paste-data';
-
-/**
- * Tag substitute object.
- */
-interface TagSubstitute {
-  /**
-   * Name of related Tool
-   *
-   */
-  tool: BlockToolAdapter;
-
-  /**
-   * If a Tool specifies just a tag name, all the attributes will be sanitized.
-   * But Tool can explicitly specify sanitizer configuration for supported tags
-   */
-  sanitizationConfig?: SanitizerRule;
-}
-
-/**
- * Pattern substitute object.
- */
-interface PatternSubstitute {
-  /**
-   * Pattern`s key
-   */
-  key: string;
-
-  /**
-   * Pattern regexp
-   */
-  pattern: RegExp;
-
-  /**
-   * Name of related Tool
-   */
-  tool: BlockToolAdapter;
-}
-
-/**
- * Files` types substitutions object.
- */
-interface FilesSubstitution {
-  /**
-   * Array of file extensions Tool can handle
-   *
-   * @type {string[]}
-   */
-  extensions: string[];
-
-  /**
-   * Array of MIME types Tool can handle
-   *
-   * @type {string[]}
-   */
-  mimeTypes: string[];
-}
-
+import { TagSubstitute } from '../../../types/configs/paste-data';
+import { PatternSubstitute } from '../../../types/configs/paste-data';
+import { FilesSubstitution } from '../../../types/configs/paste-data';
 
 
 /**

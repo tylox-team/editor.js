@@ -4,6 +4,7 @@ import {SanitizerConfig} from './sanitizer-config';
 import {I18nConfig} from './i18n-config';
 import { BlockMutationEvent } from '../events/block';
 import { PasteData } from './paste-data';
+import { Paste } from '../tools/paste';
 
 export interface EditorConfig {
   /**
@@ -120,5 +121,5 @@ export interface EditorConfig {
   /**
    * A function that intercepts the pasted data and returns a modified version of the data
    */
-  pasteInterceptor?(data: PasteData): PasteData;
+  pasteInterceptor?(data: PasteData, ctrl: Paste): PasteData;
 }

@@ -8,6 +8,7 @@ import EventsDispatcher from './utils/events';
 import Modules from './modules';
 import type { EditorEventMap } from './events';
 import { PasteData } from '../../types/configs/paste-data';
+import { Paste } from '../../types/tools/paste';
 
 /**
  * Editor.js core class. Bootstraps modules.
@@ -165,7 +166,7 @@ export default class Core {
     this.config.onReady = this.config.onReady || ((): void => {});
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     this.config.onChange = this.config.onChange || ((): void => {});
-    this.config.pasteInterceptor = this.config.pasteInterceptor || ((data: PasteData): PasteData => { return data; });
+    this.config.pasteInterceptor = this.config.pasteInterceptor || ((data: PasteData, ctrl: Paste): PasteData => { return data; });
     this.config.inlineToolbar = this.config.inlineToolbar !== undefined ? this.config.inlineToolbar : true;
 
     /**
