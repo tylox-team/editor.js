@@ -167,7 +167,7 @@ export default class Paste extends Module {
     const isCurrentBlockDefault = BlockManager.currentBlock && BlockManager.currentBlock.tool.isDefault;
     const needToReplaceCurrentBlock = isCurrentBlockDefault && BlockManager.currentBlock.isEmpty;
 
-    dataToInsert.map((data) => this.config.pasteInterceptor?.(data, this)).map(
+    dataToInsert.map(
       async (content, i) => this.insertBlock(content, i === 0 && needToReplaceCurrentBlock)
     );
 
@@ -765,14 +765,16 @@ export default class Paste extends Module {
     const { currentBlock } = BlockManager;
     let block: Block;
 
+    const dataToInsert = this.config.pasteInterceptor?.(data, this) || data;
+
     if (canReplaceCurrentBlock && currentBlock && currentBlock.isEmpty) {
-      block = BlockManager.paste(data.tool, data.event, true);
+      block = BlockManager.paste(dataToInsert.tool, dataToInsert.event, true);
       Caret.setToBlock(block, Caret.positions.END);
 
       return;
     }
 
-    block = BlockManager.paste(data.tool, data.event);
+    block = BlockManager.paste(dataToInsert.tool, dataToInsert.event);
 
     Caret.setToBlock(block, Caret.positions.END);
   }
