@@ -148,11 +148,13 @@ export default class Paste extends Module {
    */
   public async processText(data: string, isHTML = false): Promise<void> {
     const { Caret, BlockManager } = this.Editor;
-    const dataToInsert = isHTML ? this.processHTML(data) : this.processPlain(data);
+    const dataToInsertInit = isHTML ? this.processHTML(data) : this.processPlain(data);
 
-    if (!dataToInsert.length) {
+    if (!dataToInsertInit.length) {
       return;
     }
+
+    const dataToInsert = dataToInsertInit.map((d) => this.config.pasteInterceptor?.(d, this) || d);
 
     if (dataToInsert.length === 1) {
       if (!dataToInsert[0].isBlock) {
@@ -765,16 +767,14 @@ export default class Paste extends Module {
     const { currentBlock } = BlockManager;
     let block: Block;
 
-    const dataToInsert = this.config.pasteInterceptor?.(data, this) || data;
-
     if (canReplaceCurrentBlock && currentBlock && currentBlock.isEmpty) {
-      block = BlockManager.paste(dataToInsert.tool, dataToInsert.event, true);
+      block = BlockManager.paste(data.tool, data.event, true);
       Caret.setToBlock(block, Caret.positions.END);
 
       return;
     }
 
-    block = BlockManager.paste(dataToInsert.tool, dataToInsert.event);
+    block = BlockManager.paste(data.tool, data.event);
 
     Caret.setToBlock(block, Caret.positions.END);
   }
