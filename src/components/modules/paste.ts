@@ -613,8 +613,9 @@ export default class Paste extends Module {
       .filter((data) => {
         const isEmpty = $.isEmpty(data.content);
         const isSingleTag = $.isSingleTag(data.content);
-
-        return !isEmpty || isSingleTag;
+        const isBrBlock = data.isBlock && data.content?.tagName === 'BR';
+        
+        return (!isEmpty || isSingleTag) && !isBrBlock;
       });
   }
 
